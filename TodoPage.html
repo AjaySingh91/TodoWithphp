@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo</title>
+    <link rel="stylesheet" href="Todo.css">
+</head>
+
+<body>
+    <div class="username">
+        <h1></h1>
+    </div>
+
+    <div class="container">
+        <div class="logout">
+            <button class="logoutbutton" id="logout-button"><img src="/Images/power-off.png" alt="Logut image"
+                    height="40px" width="40px"></button>
+        </div>
+        <h1>Todo List</h1>
+        <div class="inputbox">
+            <input type="text" id="todoInput" placeholder="Add new todo">
+            <button class="addbuton" id="addButton">Add</button>
+        </div>
+        <ul id="todoList">
+            <!-- Todo items will be added dynamically here -->
+        </ul>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let user = JSON.parse(sessionStorage.getItem("user"));
+            let email = JSON.parse(sessionStorage.getItem("email"));
+            document.querySelector(".username h1").innerText = `Welcome ${user}`;
+
+            loadTodoList(email);
+
+            document.getElementById('addButton').addEventListener('click', function () {
+                addTodo(email);
+            });
+            document.getElementById('logout-button').addEventListener('click', function () {
+                logout();
+            });
+        }
+        )
+        let is_edit = false
+        function addTodo(email) {
+            let todoInput = document.getElementById('todoInput').value;
+            if (todoInput === "") return;
+            let userTodoList = JSON.parse(localStorage.getItem(email)) || [];
+            userTodoList.push(todoInput);
+            localStorage.setItem(email, JSON.stringify(userTodoList));
+
+            loadTodoList(email);
+
+            document.getElementById('todoInput').value = '';
+        }
+        function loadTodoList(email) {
+            let todoList = document.getElementById('todoList');
+            let todos = JSON.parse(localStorage.getItem(email)) || [];
+            todoList.innerHTML = '';
+            todos.forEach(todo => {
+                let li = document.createElement('li');
+                li.innerText = todo;
+
+                let deleteButton = document.createElement('button');
+                let deleteImg = document.createElement('img');
+                deleteImg.src = "/Images/delete.png";
+                deleteImg.alt = "Delete image";
+                deleteButton.appendChild(deleteImg);
+
+                deleteButton.addEventListener('click', function () {
+                    deleteTodoItem(email, todo);
+                });
+
+                let EditButton = document.createElement('button');
+                let EditImg = document.createElement('img');
+                EditImg.src = "/Images/edit.png";
+                EditImg.alt = "Edit image";
+                EditButton.appendChild(EditImg);
+                EditButton.addEventListener('click', function () {
+                    editTodo(email, todos.indexOf(todo), todo);
+                    is_edit = true;
+                });
+
+                li.appendChild(deleteButton);
+                li.appendChild(EditButton);
+                todoList.appendChild(li);
+            });
+        }
+
+        function deleteTodoItem(email, todo) {
+            let userTodoList = JSON.parse(localStorage.getItem(email));
+            userTodoList = userTodoList.filter(item => item !== todo);
+            localStorage.setItem(email, JSON.stringify(userTodoList));
+
+            loadTodoList(email);
+        }
+
+        function editTodo(email, index, todo) {
+            let todoInput = document.getElementById('todoInput');
+            let addbuton = document.getElementById('addButton');
+
+            todoInput.value = todo;
+            addbuton.innerText = 'Edit';
+
+            addbuton.onclick = function () {
+                deleteTodoItem(email, todo);
+                let userTodoList = JSON.parse(localStorage.getItem(email));
+                addbuton.innerText = 'Add';
+                if (todoInput.value === "")
+                    return;
+                userTodoList[index] = todoInput.value;
+                localStorage.setItem(email, JSON.stringify(userTodoList));
+
+                loadTodoList(email);
+                todoInput.value = '';
+
+                addbuton.onclick = addTodo;
+            }
+        }
+
+
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = "LogIn.html";
+        }
+
+    </script>
+</body>
+
+</html>

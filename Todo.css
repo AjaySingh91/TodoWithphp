@@ -1,0 +1,78 @@
+
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url("./Images/pexels-francesco-ungaro-1525041.jpg");
+    background-attachment: fixed; 
+    background-size: 100% 100%;
+}
+
+.container {
+    
+    background-color: #fff;
+    max-width: 400px;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+h1 {
+    text-align: center;
+}
+input[type="text"] {
+    width: calc(100% - 40px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.addbuton {
+    padding: 3px 20px;
+    height: 40px;
+    background-color: #092e58;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.addbuton:hover{
+    background-color: #0056b3;
+}
+.inputbox{
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.logout{
+    float: right;
+}
+.logoutbutton{
+    border: none;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+#todoList {
+    list-style-type: none;
+    padding: 0;
+}
+#todoList li {
+    background-color: #f4f4f4;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+
+#todoList li button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin: 0 5px;
+    float: right;
+}
+
+#todoList li img {
+    width: 20px;
+    height: 20px;
+}

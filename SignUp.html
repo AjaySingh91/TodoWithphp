@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignUp Form</title>
+    <link rel="stylesheet" href="SignUp.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">ToDo</div>
+        <div id="error" class="error"></div>
+        <form action="#">
+            <div class="UserDetailsInput  ">
+                <label for="FirstName">First Name</label>
+                <input type="text" name="firstName" id="FirstName" placeholder="Enter first Name">
+            </div>
+            <div class="UserDetailsInput  ">
+                <label for="LastName">Last Name</label>
+                <input type="text" name="lastName" id="LastName" placeholder="Enter Last Name">
+            </div>
+            <div class="UserDetailsInput  ">
+                <label for="Email">Email</label>
+                <input type="email" name="email" id="Email" placeholder="Enter Your Email">
+            </div>
+            <div class="UserDetailsInput  ">
+                <label for="Password">Password</label>
+                <input type="password" name="password" id="Password" placeholder="Enter Password">
+            </div>
+            <div class="SubmitButton">
+                <button type="button" class="SignUp " onclick="saveData()">SignUp</button>
+                <a class="Login " href="LogIn.html">Login</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function saveData() {
+            let firstName, lastName, email, password;
+            firstName = document.getElementById('FirstName').value;
+            lastName = document.getElementById('LastName').value;
+            email = document.getElementById('Email').value;
+            password = document.getElementById('Password').value;
+            if (!firstName || !lastName || !email || !password) {
+                document.getElementById("error").innerText = "Enter all the fields!";
+                return;
+            }
+
+            let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailRegex.test(email)) {
+                document.getElementById('error').innerText = 'Please enter a valid email address.';
+                return;
+            } else {
+                document.getElementById('error').innerText = ''; // Clear error message if email is valid
+            }
+
+            let userData = new Array();
+            userData = JSON.parse(localStorage.getItem("userData")) ? JSON.parse(localStorage.getItem("userData")) : [];
+            if (userData.some((data) => data.email === email)) {
+                alert("User Already Exist");
+                return;
+            } else {
+                userData.push({ firstName, lastName, email, password });
+                localStorage.setItem("userData", JSON.stringify(userData));
+                window.location.href = "LogIn.html";
+
+            }
+        }
+    </script>
+</body>
+
+</html>

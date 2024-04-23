@@ -1,0 +1,93 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url("./Images/pexels-francesco-ungaro-1525041.jpg");
+    background-attachment: fixed; 
+    background-size: 100% 100%;
+}
+
+.container {
+    max-width: 400px;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #fff;
+}
+.header {
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: large;
+    font-weight: bold;
+}
+
+.UserDetailsInput{
+    width: 100%;
+    padding: 10px;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.UserDetailsInput input{
+    height: 30px;
+    width: 350px;
+    border-radius: 5px;
+    padding: 4px;
+}
+.SubmitButton{
+    margin-top: 10px;
+    display: flex;
+    column-gap: 10px;
+    justify-content: center;
+}
+.SignUp {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Hover effect for the sign up button */
+.SignUp:hover {
+    background-color: #45a049;
+}
+
+/* Style for the login button */
+.Login {
+    background-color: #092e58;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none;
+}
+
+/* Hover effect for the login button */
+.Login:hover {
+    background-color: #010a14;
+}
+
+.error {
+    color: red;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: larger;
+}
+
+@media only screen and (max-width: 800px) {
+    .container {
+        width: 90%;
+    }
+}
